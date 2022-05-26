@@ -5,6 +5,7 @@ class NewsCard extends StatelessWidget {
   final String? image;
   final String? title;
   final String? description;
+
   const NewsCard({
     super.key,
     required this.image,
@@ -18,7 +19,19 @@ class NewsCard extends StatelessWidget {
       children: [
         Row(
           children: [
-            checkUrl(image),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: SizedBox(
+                width: 140,
+                height: 140,
+                child: Image.network(
+                  image!.toString(),
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, object, staTracer) =>
+                      Image.asset("assets/notfound.png"),
+                ),
+              ),
+            ),
             const SizedBox(width: defaultPadding),
             Expanded(
               child: Column(
@@ -57,15 +70,19 @@ class NewsCard extends StatelessWidget {
   }
 }
 
-Widget checkUrl(String? url) {
+Widget checkUrlImage(String? url) {
   try {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
-      child: Image.network(
-        url!,
-        height: 140,
+      child: Container(
         width: 140,
-        fit: BoxFit.cover,
+        height: 140,
+        child: Image.network(
+          url!,
+          fit: BoxFit.cover,
+          errorBuilder: (context, object, staTracer) =>
+              const Icon(Icons.error_outline_outlined),
+        ),
       ),
     );
   } catch (e) {
