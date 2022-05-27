@@ -12,14 +12,8 @@ class NewsCard extends StatelessWidget {
     required this.title,
     required this.description,
   });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            ClipRRect(
+  /*
+   ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: SizedBox(
                 width: 140,
@@ -30,6 +24,36 @@ class NewsCard extends StatelessWidget {
                   errorBuilder: (context, object, staTracer) =>
                       Image.asset("assets/notfound.png"),
                 ),
+              ),
+            ),
+            const SizedBox(width: defaultPadding),
+  */
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image(
+                width: 140,
+                height: 140,
+                errorBuilder: (context, error, stackTrace) => Image.asset(
+                  'assets/notfound.png',
+                  fit: BoxFit.cover,
+                ),
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  image!,
+                ),
+                // loadingBuilder: ( context,
+                //      child,
+                //     loadingProgress,)=>Image.asset(
+                //   'assets/image.png',
+                //   fit: BoxFit.cover,
+                // ),
               ),
             ),
             const SizedBox(width: defaultPadding),
